@@ -8,17 +8,23 @@ export class News extends Component {
     this.state = {
       articles: [],
       loading: false,
+      page:1
     };
   }
   async componentDidMount(){
-    console.log("cdm")
-    let url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=b2d34c7fda05445f9358dde25ea65069"
+       let url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=b2d34c7fda05445f9358dde25ea65069"
     let data = await fetch(url);
     let passedData = await data.json()
     console.log(passedData);
     this.setState({articles:passedData.articles})
 
   }
+  handelPreviousClick = ()=>{
+    console.log("Previous")
+  }  
+  handelNextClick = ()=>{
+    console.log("Next")
+  } 
   render() {
     return (
       <div className="container my-3">
@@ -34,7 +40,10 @@ export class News extends Component {
               newsUrl={element.url}/>
           </div>
         })}
-          
+        </div>
+        <div className="container d-flex justify-content-between">
+        <button disabled={this.state.page<=1} type="button" class="btn btn-dark" onClick={this.handelPreviousClick}> &larr; Previous</button>
+        <button type="button" class="btn btn-dark" onClick={this.handelNextClick}>Next &rarr;</button>
         </div>
       </div>
     );
