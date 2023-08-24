@@ -8,7 +8,7 @@ export class News extends Component {
 
   static defaultProps = {
     country: 'in',
-    pageSize: 8,
+    pageSize: 70,
     category: 'general',
   };
   static propsTypes = {
@@ -28,11 +28,17 @@ export class News extends Component {
     };
   }
   async updateNews(){
+    this.props.setProgress(10);
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=b2d34c7fda05445f9358dde25ea65069&page=1&pageSize=${this.props.pageSize}`;
     let data = await fetch(url);
+    this.props.setProgress(30);
     let passedData = await data.json()
+    this.props.setProgress(70);
     this.setState({ articles: passedData.articles, totalArticles: passedData.totalResults })
+    this.props.setProgress(100);
   }
+  
+
   async componentDidMount() {
     this.updateNews();
   }
@@ -81,7 +87,7 @@ export class News extends Component {
           hasMore={this.state.articles.length !== this.state.totalResults}
           loader={<h4>Loading...</h4>}
         >
-        <div className="container">
+       <div className="container">
         <div className="container">
         </div>
           <div className="row">

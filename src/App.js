@@ -8,23 +8,35 @@ import {
   Route,
   
 } from "react-router-dom";
+import LoadingBar from 'react-top-loading-bar'
 
 export default class App extends Component {
- 
+   
+    state = {
+      progress : 10
+    }
+    setProgress = (progress)=>{
+      this.setState({progress:progress})
+    }
  render() {
   return (
     <div>
     <Router>
     <Navbar />
+    <LoadingBar
+        color='#f11946'
+        progress={this.state.progress}
+
+      />
     <Routes>
-      <Route path="/" element={<News key="general" pageSize={this.totalResults} country="in" category="general" />} />
-      <Route path="/business" element={<News key="business" pageSize={15} country="in" category="business" />} />
-      <Route path="/entertainment" element={<News key="entertainment" pageSize={15} country="in" category="entertainment" />} />
+      <Route path="/" element={<News setProgress={this.setProgress} key="general" pageSize={this.pageSize} country="in" category="general" />} />
+      <Route path="/business" element={<News setProgress={this.setProgress} key="business" pageSize={this.pageSize} country="in" category="business" />} />
+      <Route path="/entertainment" element={<News setProgress={this.setProgress} key="entertainment" pageSize={this.pageSize} country="in" category="entertainment" />} />
       {/*<Route path="/general" element={<News key="general" pageSize={5} country="in" category="general" />} />*/}
-      <Route path="/health" element={<News key="health" pageSize={15} country="in" category="health" />} />
-      <Route path="/science" element={<News key="science" pageSize={15} country="in" category="science" />} />
-      <Route path="/sports" element={<News key="sports" pageSize={15} country="in" category="sports" />} />
-      <Route path="/technology" element={<News key="technology" pageSize={15} country="in" category="technology" />} />
+      <Route path="/health" element={<News setProgress={this.setProgress} key="health" pageSize={this.pageSize} country="in" category="health" />} />
+      <Route path="/science" element={<News setProgress={this.setProgress} key="science" pageSize={this.pageSize} country="in" category="science" />} />
+      <Route path="/sports" element={<News setProgress={this.setProgress} key="sports" pageSize={this.pageSize} country="in" category="sports" />} />
+      <Route path="/technology" element={<News setProgress={this.setProgress} key="technology" pageSize={this.pageSize} country="in" category="technology" />} />
     </Routes>
   </Router>
     </div>
